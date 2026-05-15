@@ -1,4 +1,4 @@
-- 👋 Hi, I’m Timothy Lee Yung Yau (username: @timothylee58)
+👋 Hi, I’m Timothy Lee Yung Yau (username: @timothylee58)
 - Malaysian
 - Gen-Z
 
