@@ -1,17 +1,18 @@
-- 👋 Hi, I’m @timothylee58
-- 📫 How to reach me ...
+# Rapid KL Real-Time Transit Intelligence System
 
-## Social media
-- [Faceboook: @timothylee_lyy](https://www.facebook.com/timothylee.lyy)
-- [Threads: @timothylee_lyy](https://www.threads.net/@timothylee_lyy)
-- [LinkedIn: Lee Yung Yau](https://www.linkedin.com/in/lee-yung-yau-4533152a4/)
-- [Spotify: YungYauLee](https://open.spotify.com/user/YungYauLee)
-- [WeChat: yungyau0508](#)
-- [X: @tim_lyy](https://x.com/tim_lyy)
-- [Snapchat: @timothylyy58](https://www.snapchat.com/add/timothylyy58)
-- [Instagram: @timothylee_lyy](https://www.instagram.com/timothylee_lyy)
+## Unified Project Structure
 
-<!---
-timothylee58/timothylee58 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+- `app/api`: FastAPI entrypoint and endpoints (`/live-map`, `/health`, future `/forecast/{station_id}`).
+- `app/services`: GTFS-Realtime ingestion loop, Redis caching, and geospatial nearest-station logic.
+- `app/data_engine`: Polars LazyFrame feature engineering pipeline for OD ridership forecasting.
+- `app/models`: Pydantic schemas for vehicle payloads.
+- `app/frontend`: Reserved for Streamlit + PyDeck visualization.
+- `tests`: test suites.
+
+## Run Backend
+
+```bash
+uvicorn app.api.main:app --reload
+```
+
+The realtime ingestor starts on app startup and refreshes every 30 seconds.
