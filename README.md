@@ -23,7 +23,7 @@ Let's connect.
 ## Socials
 
 - https://jomqr.my/yungyaulee
-- [Personal Website: Soon](#)
+[Personal Website: Soon]
 
 
 <!---
