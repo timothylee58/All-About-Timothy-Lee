@@ -1,9 +1,9 @@
-import Demo from "@/components/ui/contribution-skyline-demo"
+import Hero from "@/components/sections/hero"
 
 export default function Home() {
   return (
     <main>
-      <Demo />
+      <Hero />
     </main>
   )
 }
