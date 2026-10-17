@@ -4,11 +4,12 @@ import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import ContributionSkyline from "@/components/ui/contribution-skyline"
+import ContributionSkyline, { type ContributionDay } from "@/components/ui/contribution-skyline"
+import { CONTACT_EMAIL, GITHUB_LOGIN } from "@/data/site"
 
 const roles = ["AI Engineer", "Full-Stack Developer", "Agentic Workflows", "Production RAG"]
 
-export default function Hero() {
+export default function Hero({ contributions }: { contributions: ContributionDay[] | null }) {
   const reduce = useReducedMotion()
   const rise = (delay: number) => ({
     initial: reduce ? false : { opacity: 0, y: 16 },
@@ -45,19 +46,23 @@ export default function Hero() {
 
       <motion.div {...rise(0.32)} className="mt-8 flex flex-wrap gap-3">
         <Button size="lg" asChild>
-          <a href="https://github.com/timothylee58" target="_blank" rel="noreferrer">
+          <a href={`https://github.com/${GITHUB_LOGIN}`} target="_blank" rel="noreferrer">
             GitHub <ArrowUpRight aria-hidden="true" />
           </a>
         </Button>
         <Button size="lg" variant="outline" asChild>
-          <a href="https://jomqr.my/yungyaulee" target="_blank" rel="noreferrer">
+          <a href={`mailto:${CONTACT_EMAIL}`}>
             Get in touch <ArrowUpRight aria-hidden="true" />
           </a>
         </Button>
       </motion.div>
 
       <motion.div {...rise(0.44)} className="mt-14">
-        <ContributionSkyline title="A year of building, as a skyline (sample data)" endDate="2017-11-08" />
+        {contributions ? (
+          <ContributionSkyline data={contributions} />
+        ) : (
+          <ContributionSkyline title="A year of building, as a skyline (sample data)" endDate="2017-11-08" />
+        )}
       </motion.div>
     </section>
   )
