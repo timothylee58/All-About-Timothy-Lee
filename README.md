@@ -3,6 +3,14 @@
 - Gen-Z
 
 
+## Featured: Contribution Skyline
+
+A year of activity as a GitHub-style heat map that folds up into an isometric 3D skyline. Canvas + React, no chart library. Built for my portfolio site (Next.js, TypeScript, Tailwind, shadcn/ui), and it lives in [`src/components/ui/contribution-skyline.tsx`](src/components/ui/contribution-skyline.tsx).
+
+![Contribution Skyline: a year of activity rendered as an isometric 3D skyline](docs/contribution-skyline.png)
+
+<sub>Static preview rendered from generated sample data. The live component is interactive: hover a day for its count, arrow keys to explore, drag to orbit, and toggle between the flat and 3D views.</sub>
+
 ## About Me
 I built full-stack, AI-powered applications — and I bring logistical operational context that most developers don't have.
 

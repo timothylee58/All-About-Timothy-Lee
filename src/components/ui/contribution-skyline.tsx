@@ -392,7 +392,7 @@ function Stat({
         <div className="text-[13px] leading-tight" style={{ color: MUTED }}>
           {label}
         </div>
-        <div className="mt-1 flex items-baseline gap-1.5">
+        <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
           <span
             className="font-semibold tabular-nums transition-colors duration-500 motion-reduce:transition-none"
             style={{ color: accent, fontSize: size, lineHeight: 1, letterSpacing: "-0.02em" }}
