@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import ThemeToggle from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
 const links = [
@@ -48,24 +49,27 @@ export default function SiteHeader() {
         >
           Timothy Lee
         </a>
-        <nav aria-label="Sections">
-          <ul className="flex items-center gap-1 sm:gap-2">
-            {links.map((l) => (
-              <li key={l.id}>
-                <a
-                  href={`#${l.id}`}
-                  aria-current={active === l.id ? "location" : undefined}
-                  className={cn(
-                    "rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:px-3",
-                    active === l.id && "bg-foreground/5 text-foreground",
-                  )}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <nav aria-label="Sections">
+            <ul className="flex items-center gap-1 sm:gap-2">
+              {links.map((l) => (
+                <li key={l.id}>
+                  <a
+                    href={`#${l.id}`}
+                    aria-current={active === l.id ? "location" : undefined}
+                    className={cn(
+                      "rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground sm:px-3",
+                      active === l.id && "bg-foreground/5 text-foreground",
+                    )}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )
