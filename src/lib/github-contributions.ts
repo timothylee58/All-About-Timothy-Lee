@@ -1,52 +1,40 @@
 import { cacheLife } from "next/cache"
 
 import type { ContributionDay } from "@/components/ui/contribution-skyline"
-
-const QUERY = `
-  query ($login: String!) {
-    user(login: $login) {
-      contributionsCollection {
-        contributionCalendar {
-          weeks { contributionDays { date contributionCount } }
-        }
-      }
-    }
-  }
-`
-
-type CalendarResponse = {
-  data?: {
-    user?: {
-      contributionsCollection: {
-        contributionCalendar: { weeks: { contributionDays: { date: string; contributionCount: number }[] }[] }
-      }
-    } | null
-  }
-}
+import { CALENDAR_QUERY, parseCalendar } from "@/lib/github-calendar"
 
 // Cached for an hour (Cache Components, see next.config.ts) so GitHub is hit at most once an hour.
 // Returns null instead of throwing so the page still renders (with sample data) when the token is missing or GitHub is down.
+// The reason for a fallback is logged, because a silent sample-data skyline is otherwise indistinguishable from a working one.
 export async function getContributions(login: string): Promise<ContributionDay[] | null> {
   "use cache"
   cacheLife("hours")
 
   const token = process.env.GITHUB_TOKEN
-  if (!token) return null
+  if (!token) {
+    console.warn("[contributions] GITHUB_TOKEN is not set; showing sample data")
+    return null
+  }
 
   try {
     const res = await fetch("https://api.github.com/graphql", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ query: QUERY, variables: { login } }),
+      body: JSON.stringify({ query: CALENDAR_QUERY, variables: { login } }),
     })
-    if (!res.ok) return null
+    if (!res.ok) {
+      console.warn(`[contributions] GitHub responded ${res.status}; showing sample data`)
+      return null
+    }
 
-    const json = (await res.json()) as CalendarResponse
-    const weeks = json.data?.user?.contributionsCollection.contributionCalendar.weeks
-    if (!weeks) return null
-
-    return weeks.flatMap((w) => w.contributionDays.map((d) => ({ date: d.date, count: d.contributionCount })))
-  } catch {
+    const result = parseCalendar(await res.json())
+    if (!result.ok) {
+      console.warn(`[contributions] ${result.reason}; showing sample data`)
+      return null
+    }
+    return result.days
+  } catch (err) {
+    console.warn("[contributions] request failed; showing sample data", err instanceof Error ? err.message : err)
     return null
   }
 }
