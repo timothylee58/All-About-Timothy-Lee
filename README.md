@@ -11,6 +11,16 @@ A year of activity as a GitHub-style heat map that folds up into an isometric 3D
 
 <sub>Static preview rendered from generated sample data. The live component is interactive: hover a day for its count, arrow keys to explore, drag to orbit, and toggle between the flat and 3D views.</sub>
 
+## Running the portfolio site
+
+```bash
+npm install
+cp .env.example .env.local   # then fill in GITHUB_TOKEN
+npm run dev
+```
+
+**Real contribution data.** The Contribution Skyline shows your GitHub profile-wide contribution calendar (commits, PRs, issues and reviews across all repos). It is fetched on the server with `GITHUB_TOKEN` (a token that can read your public profile; no repo scopes needed) and cached for an hour. Set the same variable in your hosting provider's environment settings. Without it, or if GitHub is unreachable, the skyline falls back to a generated sample year, labelled "(sample data)", and the reason is logged as `[contributions] ...` (in the build output, and in server logs on later hourly refreshes). Private contributions only appear if "Include private contributions on my profile" is enabled in your GitHub profile settings.
+
 ## About Me
 I built full-stack, AI-powered applications — and I bring logistical operational context that most developers don't have.
 
